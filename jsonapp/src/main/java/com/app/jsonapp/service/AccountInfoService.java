@@ -27,7 +27,7 @@ public class AccountInfoService implements AccountService
 		
 		final String incrimentalString = incrementCharsToString(trimmedString);
 		final String uppercaseString = incrimentalString.toUpperCase();
-		final int amount = convertDecimalToRoman(uppercaseString);
+		final int amount = convertRomanToDecimalAmount(uppercaseString);
 		final String reverseString = convertIntegerToRomanNumerals(amount);
 		
 		final AccountInfo accountInfo = new AccountInfo();
@@ -64,7 +64,7 @@ public class AccountInfoService implements AccountService
 	    return b.toString();
 	 }
 	
-	private int convertDecimalToRoman(final String romanNumeral) 
+	private int convertRomanToDecimalAmount(final String romanNumeral) 
 	{
 		int decimal = 0;
 
@@ -107,10 +107,10 @@ public class AccountInfoService implements AccountService
 	    return decimal;
 	}
 	
-	public String convertIntegerToRomanNumerals(int num) {
-
-        final int[] values = {1000,500,100,50,10,5,1};
-        final String[] romanLiterals = {"M","D","C","L","X","V","I"};
+	public String convertIntegerToRomanNumerals(int num) 
+	{
+        final int[] values = {1000, 500, 100, 50, 10, 5, 1};
+        final String[] romanLiterals = {"M", "D", "C", "L", "X", "V", "I"};
 
         final StringBuilder roman = new StringBuilder();
 

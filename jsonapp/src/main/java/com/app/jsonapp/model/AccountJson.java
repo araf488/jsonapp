@@ -1,7 +1,10 @@
 package com.app.jsonapp.model;
 
+import org.springframework.data.annotation.Id;
+
 public class AccountJson 
 {
+	@Id
 	private String requestId;
 	private String accountName;
 	private String amount;
