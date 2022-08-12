@@ -31,7 +31,7 @@ public class IndexController
 	@RequestMapping(value = "/getAccountInfo", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public ModelAndView getAccountInfo(@RequestParam("jsonData") final String jsonData) throws JsonMappingException, JsonProcessingException
 	{
-		if(!jsonData.isBlank())
+		if(jsonData != null && jsonData != "")
 		{
 			final ObjectMapper objectMapper = new ObjectMapper();
 			final AccountJson accountJson = objectMapper.readValue(jsonData, AccountJson.class);
