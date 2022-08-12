@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class JsonappApplication {
 
 	public static void main(String[] args) {
+		System.out.println("Hello boot!");
 		SpringApplication.run(JsonappApplication.class, args);
 	}
 
