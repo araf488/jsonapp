@@ -29,25 +29,44 @@ public class IndexController
 	}
 
 	@RequestMapping(value = "/getAccountInfo", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public ModelAndView getAccountInfo(@RequestParam("jsonData") final String jsonData) throws JsonMappingException, JsonProcessingException
+	public ModelAndView getAccountInfo(@RequestParam("jsonData") final String jsonData)
 	{
-		if(jsonData != null && jsonData != "")
+		try 
 		{
-			final ObjectMapper objectMapper = new ObjectMapper();
-			final AccountJson accountJson = objectMapper.readValue(jsonData, AccountJson.class);
-			if(accountJson.getRequestId() != null && accountJson.getAccountName() != null && accountJson.getAmount() != null)
+			final AccountJson accountJson = getAccountJson(jsonData);
+			if(accountJson != null)
 			{
-				final AccountInfo accountInfo = accountInfoService.getUserAccountInfo(accountJson);
-				
-				final ModelAndView view = new ModelAndView();
-				view.setViewName("info");
-				view.addObject("accountInfo", accountInfo);
-				
-				return view;
+				if(accountJson.getRequestId() != null && accountJson.getAccountName() != null && accountJson.getAmount() != null)
+				{
+					final AccountInfo accountInfo = accountInfoService.getUserAccountInfo(accountJson);
+					
+					final ModelAndView view = new ModelAndView();
+					view.setViewName("info");
+					view.addObject("accountInfo", accountInfo);
+					
+					return view;
+				}
 			}
+		} 
+		catch (final Exception e) 
+		{
+			e.printStackTrace();
+			return emptyView();
 		}
 		
 		return emptyView();
+	}
+	
+	public AccountJson getAccountJson(final String json) throws JsonMappingException, JsonProcessingException
+	{
+		if(json != null && json != "")
+		{
+			final ObjectMapper objectMapper = new ObjectMapper();
+			final AccountJson accountJson = objectMapper.readValue(json, AccountJson.class);
+			return accountJson;
+		}
+		
+		return null;
 	}
 	
 	public ModelAndView emptyView() 
